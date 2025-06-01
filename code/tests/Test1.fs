@@ -23,3 +23,15 @@ type Test1 () =
             Assert.IsTrue is_same
         | None -> Assert.IsTrue false
 
+
+    [<TestMethod>]
+    member this.ComplexParserTest () = 
+        let input = "Lx.(xLy.(xx))"
+        let result = parse input
+        match result with
+        | Some actual -> 
+            let expected = Abstraction ('x', Application (Variable 'x', Abstraction ('y', Application (Variable 'x', Variable 'x'))))
+            let is_same = expected = actual
+            Assert.IsTrue is_same
+        | None -> Assert.IsTrue false
+

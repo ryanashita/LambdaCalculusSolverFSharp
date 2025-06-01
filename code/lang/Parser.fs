@@ -21,22 +21,22 @@ let pexpr,pexprImpl = recparser()
 let pvar = pletter |>> Variable <!> "variable"
 
 // parser for the Abstraction constructor
-let pabstraction = pright (pchar 'L') (pseq (pleft pletter (pchar '.')) pexpr Abstraction)
+let pabstraction = pright (pchar 'L') (pseq (pleft pletter (pchar '.')) pexpr Abstraction) <!> "abstraction"
 
 // parser for parens
 let pparens = pbetween (pchar '(') pexpr (pchar ')') <!> "parens"
 
 // parser for the different types of constructors
-let ptype = pabstraction <|> pparens <|> pvar
+let ptype = pabstraction <|> pparens <|> pvar <!> "type"
 
 // parser for the Application Parser
 let papplication = pseq ptype (pmany1 ptype) (fun (a,b) -> List.fold (fun acc arg -> Application(acc,arg)) a b) <|> pseq pabstraction pexpr Application <!> "application"
 
 // define pexpr
-pexprImpl := pabstraction <|> papplication <|> pparens <|> pvar 
+pexprImpl := pabstraction <|> papplication <|> pparens <|> pvar <!> "expr"
 
 // define the grammar
-let grammar = pleft pexpr peof
+let grammar = pleft pexpr peof <!> "grammmar"
 
 // parse function to convert into an AST
 let parse (input: string) = 
