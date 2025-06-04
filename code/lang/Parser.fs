@@ -40,7 +40,7 @@ let grammar = pleft pexpr peof <!> "grammmar"
 
 // parse function to convert into an AST
 let parse (input: string) = 
-    let i = debug input
+    let i = prepare input
     match grammar i with
     | Success (ast,_) -> Some ast
     | Failure (_,_) -> None

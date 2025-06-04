@@ -5,7 +5,18 @@ open AST
 (*
  * The evaluator, or solver, for this lambda calculus implementation.
  * It alpha-reduces starting from a .. z
+ * It beta-reduces in the normal order
 *)
+
+// log to keep track of all reduction steps
+type Log = (string * string) list
+
+// converts Expr to string
+let rec expr_to_string (input: Expr) : string = 
+    match input with 
+    | Variable x -> string x
+    | Abstraction (x, body) -> "L" + string x + "." + expr_to_string body
+    | Application (a,b) -> expr_to_string a + expr_to_string b
 
 // picks a new variable that isn't used in the expression already
 let pick_new_variable (used : Set<char>) = 
@@ -37,38 +48,46 @@ let rec alpha_reduction (old_variable : char) (new_variable : char) (body : Expr
         Application (alpha_reduction old_variable new_variable a, alpha_reduction old_variable new_variable b)
 
 // beta reduces an application in an expression
-let rec beta_reduction (variable : char) (body : Expr) (other) : Expr = 
+let rec beta_reduction (variable : char) (body : Expr) (other) (log: Log) : Expr * Log = 
     match body with 
-    | Variable x -> if x = variable then other else Variable x
+    | Variable x -> if x = variable then other, log else Variable x, log
     | Abstraction (x, body) when x <> variable ->
         // check for free variables here, and if YES, do alpha reduction before beta reduction
         if Set.contains x (free_variables other) then
             let new_variable = pick_new_variable (Set.union (free_variables body) (free_variables other))
             let renamed = alpha_reduction x new_variable body
-            Abstraction (new_variable, beta_reduction variable renamed other)
+            let alpha_step= "α-reduction " + string new_variable + " / " + string x
+            let reduced, new_log = beta_reduction variable renamed other ((expr_to_string renamed, alpha_step) :: log)
+            Abstraction (new_variable,reduced), new_log
         else 
-            Abstraction (x, beta_reduction variable body other)
-    | Abstraction (x, body) -> Abstraction (x, body)
+            let reduced, new_log = beta_reduction variable body other log
+            Abstraction (x, reduced), new_log
+    | Abstraction (x, body) -> Abstraction (x, body), log
     // recurse on both sides of the application
     | Application (a,b) -> 
-        Application (beta_reduction variable a other, beta_reduction variable b other)
+        let a', log1 = beta_reduction variable a other log
+        let b', log2 = beta_reduction variable b other log1
+        Application (a', b'), log2
 
 // evaluates / solves the lambda expression
-let rec eval (e: Expr) : Expr = 
+let rec eval (e: Expr)(log: Log) : Expr * Log = 
     match e with 
-    | Variable v -> Variable v
-    | Abstraction (variable,body) -> Abstraction (variable, eval body)
+    | Variable v -> Variable v, log
+    | Abstraction (variable,body) -> 
+        let body', log' = eval body log
+        Abstraction (variable, body'), log'
     // beta reduce on a reducible expression (redex) : when an abstraction is on the left side in an applicatino
     | Application ( Abstraction (variable, content), arg) ->
-        let reduced = beta_reduction variable content arg
-        eval reduced
+        // printfn "Redex - %A" (expr_to_string e)
+        let reduced, alpha_log = beta_reduction variable content arg log
+        let beta_step = "β-reduction " + expr_to_string arg + " / " + string variable
+        let new_log = (expr_to_string reduced, beta_step) :: alpha_log
+        eval reduced new_log
     | Application (a,b) ->
-        let a' = eval a
-        let b' = eval b
+        // printfn "Application - %A" (expr_to_string e)
+        let a', log1 = eval a log
+        let b', log2 = eval b log1
         // in the case a' ends up evaluating to an abstraction, evaluate recursively
         match a' with
-        | Abstraction (x, body) -> eval (Application (a', b'))
-        | _ -> Application (a', b')
-
-
-
+        | Abstraction (x, body) -> eval (Application (a', b')) log2
+        | _ -> Application (a', b'), log2
