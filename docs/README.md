@@ -34,9 +34,9 @@ The BNF for this Lambda Calculus grammar is:
 ```
 
 ## Parser ##
-The parser is very simple, with custom made parser combinators for abstractions, variables, parentheses, and applications. The definition for the expression parser, ```pexpr``` is recursive and is fully defined through ```pexprImpl```
+The parser is very simple, with custom made parser combinators for abstractions, variables, parentheses, and applications. The definition for the expression parser, ```pexpr``` is recursive and is fully defined through ```pexprImpl```.
 
-All parser combinators in this implementation have debug tags.
+All parser combinators in this implementation have debug tags, and the combinators are provided by custom combinator library Combinator.fs. Details of this library are at the top of the file
 
 ## Evaluator ##
 The evaluator is a bit more complex, and I will leave the bulk of explaining to the comments in my code and the code itself. At its core, the recursive ```eval``` function recursively solves the lambda expression using pattern matches to manage all cases. The function ```beta_reduction``` does the beta-reducing, and ```alpha_reduction``` solves the alpha-reductions.
