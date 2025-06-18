@@ -17,27 +17,23 @@ open AST
 // define recursive parser pexpr
 let pexpr,pexprImpl = recparser()
 
-// parser for the Variable constructor
 let pvar = pletter |>> Variable <!> "variable"
 
-// parser for the Abstraction constructor
 let pabstraction = pright (pchar 'L') (pseq (pleft pletter (pchar '.')) pexpr Abstraction) <!> "abstraction"
 
-// parser for parens
 let pparens = pbetween (pchar '(') pexpr (pchar ')') <!> "parens"
 
-// parser for the different types of constructors
+// parser for the different types of constructors, sans application. To work around left-recursion
 let ptype = pabstraction <|> pparens <|> pvar <!> "type"
 
+// working around left recursion by calling ptype, and using fold to create one Application Expr. 
 let papplication = pseq ptype (pmany1 ptype) (fun (a,b) -> List.fold (fun acc arg -> Application(acc,arg)) a b) <|> pseq pabstraction pexpr Application <!> "application"
 
-// define pexpr
+// exprs can be applications here
 pexprImpl := pabstraction <|> papplication <|> pparens <|> pvar <!> "expr"
 
-// define the grammar
 let grammar = pleft pexpr peof <!> "grammmar"
 
-// parse function to convert into an AST
 let parse (input: string) = 
     let i = prepare input
     match grammar i with

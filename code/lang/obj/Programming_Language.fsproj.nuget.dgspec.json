@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rickyanashita/Developer/personal/Programming_Language/code/lang/Programming_Language.fsproj": {}
+    "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/lang/Programming_Language.fsproj": {}
   },
   "projects": {
-    "/Users/rickyanashita/Developer/personal/Programming_Language/code/lang/Programming_Language.fsproj": {
+    "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/lang/Programming_Language.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rickyanashita/Developer/personal/Programming_Language/code/lang/Programming_Language.fsproj",
+        "projectUniqueName": "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/lang/Programming_Language.fsproj",
         "projectName": "Programming_Language",
-        "projectPath": "/Users/rickyanashita/Developer/personal/Programming_Language/code/lang/Programming_Language.fsproj",
+        "projectPath": "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/lang/Programming_Language.fsproj",
         "packagesPath": "/Users/rickyanashita/.nuget/packages/",
-        "outputPath": "/Users/rickyanashita/Developer/personal/Programming_Language/code/lang/obj/",
+        "outputPath": "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/lang/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/rickyanashita/.nuget/NuGet/NuGet.Config"

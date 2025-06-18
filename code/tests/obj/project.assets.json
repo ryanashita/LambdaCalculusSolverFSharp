@@ -1773,11 +1773,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/rickyanashita/Developer/personal/Programming_Language/code/tests/tests.fsproj",
+      "projectUniqueName": "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/tests/tests.fsproj",
       "projectName": "tests",
-      "projectPath": "/Users/rickyanashita/Developer/personal/Programming_Language/code/tests/tests.fsproj",
+      "projectPath": "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/tests/tests.fsproj",
       "packagesPath": "/Users/rickyanashita/.nuget/packages/",
-      "outputPath": "/Users/rickyanashita/Developer/personal/Programming_Language/code/tests/obj/",
+      "outputPath": "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/rickyanashita/.nuget/NuGet/NuGet.Config"
@@ -1793,8 +1793,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/rickyanashita/Developer/personal/Programming_Language/code/lang/Programming_Language.fsproj": {
-              "projectPath": "/Users/rickyanashita/Developer/personal/Programming_Language/code/lang/Programming_Language.fsproj"
+            "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/lang/Programming_Language.fsproj": {
+              "projectPath": "/Users/rickyanashita/Developer/ryanashita/LambdaCalculusSolverFSharp/code/lang/Programming_Language.fsproj"
             }
           }
         }

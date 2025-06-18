@@ -11,14 +11,12 @@ open AST
 // log to keep track of all reduction steps
 type Log = (string * string) list
 
-// converts Expr to string
 let rec expr_to_string (input: Expr) : string = 
     match input with 
     | Variable x -> string x
     | Abstraction (x, body) -> "L" + string x + "." + expr_to_string body
     | Application (a,b) -> expr_to_string a + expr_to_string b
 
-// picks a new variable that isn't used in the expression already
 let pick_new_variable (used : Set<char>) = 
     // returns the first char in the alphabet that isn't in the 'used' set
     let new_variable = List.tryFind (fun x -> not (Set.contains x used)) ['a' .. 'z']
@@ -69,7 +67,6 @@ let rec beta_reduction (variable : char) (body : Expr) (other) (log: Log) : Expr
         let b', log2 = beta_reduction variable b other log1
         Application (a', b'), log2
 
-// evaluates / solves the lambda expression
 let rec eval (e: Expr)(log: Log) : Expr * Log = 
     match e with 
     | Variable v -> Variable v, log
@@ -84,7 +81,6 @@ let rec eval (e: Expr)(log: Log) : Expr * Log =
         let new_log = (expr_to_string reduced, beta_step) :: alpha_log
         eval reduced new_log
     | Application (a,b) ->
-        // printfn "Application - %A" (expr_to_string e)
         let a', log1 = eval a log
         let b', log2 = eval b log1
         // in the case a' ends up evaluating to an abstraction, evaluate recursively
