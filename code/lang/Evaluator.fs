@@ -24,7 +24,7 @@ let pick_new_variable (used : Set<char>) =
     let new_variable = List.tryFind (fun x -> not (Set.contains x used)) ['a' .. 'z']
     match new_variable with 
     | Some var -> var
-    | None -> failwith "ran out of variables. brown case"
+    | None -> failwith "ran out of variables. brown case failed"
 
 // returns a set of all free variables in the lambda expression
 let rec free_variables (expr : Expr) = 
@@ -76,7 +76,7 @@ let rec eval (e: Expr)(log: Log) : Expr * Log =
     | Abstraction (variable,body) -> 
         let body', log' = eval body log
         Abstraction (variable, body'), log'
-    // beta reduce on a reducible expression (redex) : when an abstraction is on the left side in an applicatino
+    // beta reduce on a reducible expression (redex) : when an abstraction is on the left side in application
     | Application ( Abstraction (variable, content), arg) ->
         // printfn "Redex - %A" (expr_to_string e)
         let reduced, alpha_log = beta_reduction variable content arg log

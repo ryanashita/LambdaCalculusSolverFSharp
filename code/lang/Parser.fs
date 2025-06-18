@@ -29,7 +29,6 @@ let pparens = pbetween (pchar '(') pexpr (pchar ')') <!> "parens"
 // parser for the different types of constructors
 let ptype = pabstraction <|> pparens <|> pvar <!> "type"
 
-// parser for the Application Parser
 let papplication = pseq ptype (pmany1 ptype) (fun (a,b) -> List.fold (fun acc arg -> Application(acc,arg)) a b) <|> pseq pabstraction pexpr Application <!> "application"
 
 // define pexpr
