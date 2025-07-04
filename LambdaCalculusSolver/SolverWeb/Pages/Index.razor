@@ -1,0 +1,118 @@
+@page "/"
+
+<style>
+a {
+    color: pink;
+}
+.neat {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 6px;
+    font-size: 14pt;
+    font-family: "Overpass Mono";
+    background: 0;
+    color: #fafafa;
+}
+p {
+    font-size: 16pt;
+}
+h3 {
+    font-size: 18pt;
+}
+h1 {
+    font-size: 20pt;
+}
+.submit-button:active {
+    background-color: #2F2F2F;
+}
+.submit-button {
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@@media (min-width: 768px) {
+    body {
+        width: 768px;
+    }
+}
+
+@@media (min-width: 992px) {
+    body {
+        width: 940px;
+    }
+}
+
+@@media (min-width: 1200px) {
+    body {
+        width: 1140px;
+    }
+}
+
+
+body {
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    font-family: "Overpass Mono";
+    background: #1F1F1F;
+    color: #fafafa;
+}
+.segment {
+    padding: 30px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+.result {
+    padding: 7px;
+    border: 1px solid white;
+    background: darkviolet;
+    border-radius: 6px;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overpass+Mono">
+
+<h1>λ calculus solver</h1>
+
+<p>
+    Welcome to lambda calculus calculator. See the sources and syntax info in the <a href="https://github.com/ryanashita/LambdaCalculusSolverFSharp"><b>GitHub repository</b></a>.
+</p>
+
+<div class="segment">
+@* <h3>Reduce</h3> *@
+<p>
+    Reduce an expression with β and α reductions.
+</p>
+<input class="neat input-box" @bind=@TextBetaReduce style="width: 50%" @onkeypress="args => { if (args.Key[0] is 'E' /*enter*/ ) BetaReduce(); }" />
+<button class="neat submit-button" @onclick="BetaReduce">β reduction</button>
+<p class="expr result">
+    @ResultBetaReduce 
+</p>
+</div>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+@using Solver
+@using Microsoft.FSharp.Core
+@using Microsoft.FSharp.Collections
+
+@code {
+    public string TextBetaReduce = @"(\x.xx)(\y.y)z";
+    public string ResultBetaReduce = "";
+    public void BetaReduce()
+    {
+        FSharpOption<Solver.AST.Expr> astMaybe = Parser.parse(TextBetaReduce);
+        if (FSharpOption<Solver.AST.Expr>.get_IsSome(astMaybe)) {
+            Solver.AST.Expr ast = astMaybe.Value;
+            var empty_log = FSharpList<Tuple<string, string>>.Empty;
+            var (reduce, steps) = Evaluator.eval(ast, empty_log);
+            var reduction_steps = ListModule.Reverse(steps);
+            ResultBetaReduce = Evaluator.expr_to_string(reduce);
+        } else {
+            ResultBetaReduce = "Invalid lambda expression";
+        }
+    }
+}

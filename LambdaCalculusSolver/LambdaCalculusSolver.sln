@@ -7,6 +7,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "tests", "tests\tests.fsproj
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "solver", "solver\solver.fsproj", "{FB83F4D9-72F1-46A3-ACDF-C89D13BF69C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolverWeb", "SolverWeb\SolverWeb.csproj", "{9FA5346F-76D2-4102-AE6F-18F82470C2FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +30,9 @@ Global
 		{FB83F4D9-72F1-46A3-ACDF-C89D13BF69C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB83F4D9-72F1-46A3-ACDF-C89D13BF69C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB83F4D9-72F1-46A3-ACDF-C89D13BF69C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA5346F-76D2-4102-AE6F-18F82470C2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA5346F-76D2-4102-AE6F-18F82470C2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA5346F-76D2-4102-AE6F-18F82470C2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA5346F-76D2-4102-AE6F-18F82470C2FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

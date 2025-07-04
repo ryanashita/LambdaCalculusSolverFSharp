@@ -7,12 +7,12 @@ open System
 open System.Reflection
 
 
-[<assembly: System.Reflection.AssemblyCompanyAttribute("Solver")>]
+[<assembly: System.Reflection.AssemblyCompanyAttribute("solver")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyDescriptionAttribute("λ calculus solver made in F#")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7076605e6d1708aad855b7320ad4bcbc38466f60")>]
-[<assembly: System.Reflection.AssemblyProductAttribute("Solver")>]
-[<assembly: System.Reflection.AssemblyTitleAttribute("Solver")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d07f42ef6fc5532c022be19a90d8599152674df0")>]
+[<assembly: System.Reflection.AssemblyProductAttribute("solver")>]
+[<assembly: System.Reflection.AssemblyTitleAttribute("solver")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]
 do()
