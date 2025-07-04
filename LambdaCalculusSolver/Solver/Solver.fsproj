@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <Description>λ calculus solver made in F#</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Combinator.fs" />
+    <Compile Include="AST.fs" />
+    <Compile Include="Parser.fs" />
+    <Compile Include="Evaluator.fs" />
+    <Compile Include="ToCSharp.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
